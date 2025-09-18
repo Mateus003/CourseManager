@@ -12,12 +12,13 @@ export class CoursesService {
   }
 
   async findById(id: string) {
-    return this.prisma.course.findUnique({
-      where: { id },
-      include: {
-        professor: true, 
-      },
-    });
+     const course = await this.prisma.course.findUnique({
+     where: { id },
+    }); 
+
+  // const professor = await this.httpService.get(`localhost:3002/professores/${course.professorId}`)
+
+    return course;
   }
 
   async findByProfessor(professorId: string) {
