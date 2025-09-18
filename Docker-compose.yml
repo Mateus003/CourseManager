@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  db_courses:
+    image: postgres:15
+    container_name: db_courses
+    environment:
+      POSTGRES_USER: ${POSTGRES_COURSES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_COURSES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_COURSES}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_courses_data:/var/lib/postgresql/data
+
+  courses:
+    build: ./services/courses
+    container_name: courses_service
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=${DATABASE_COURSES_URL}
+    depends_on:
+      - db_courses
+
+
+volumes:
+  db_courses_data:
