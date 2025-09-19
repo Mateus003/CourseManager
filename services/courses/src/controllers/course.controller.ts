@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common'; // Adiciona o Query
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common'; 
 import { CoursesService } from '../services/course.service';
 import { CreateCourseDto } from '../dtos/create-course.dto';
 
-@Controller('courses')
+@Controller()
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
@@ -18,7 +18,6 @@ export class CoursesController {
     }
   }
 
- 
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.coursesService.findById(id);
