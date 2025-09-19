@@ -1,25 +1,26 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common'; // Adiciona o Query
 import { CoursesService } from '../services/course.service';
+import { CreateCourseDto } from '../dtos/create-course.dto';
 
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
-  @Post('course')
-  create(
-    @Body()
-    data: { titulo: string; descricao: string; professorId: string },
-  ) {
+  @Post()
+  create(@Body() data: CreateCourseDto) {
     return this.coursesService.create(data);
   }
 
+  @Get()
+  find(@Query('teacherId') teacherId?: string) {
+    if (teacherId) {
+      return this.coursesService.findByProfessor(teacherId);
+    }
+  }
+
+ 
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.coursesService.findById(id);
-  }
-
-  @Get('professor/:professorId')
-  findByProfessor(@Param('professorId') professorId: string) {
-    return this.coursesService.findByProfessor(professorId);
   }
 }
