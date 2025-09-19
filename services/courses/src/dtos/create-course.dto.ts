@@ -1,5 +1,3 @@
-// Em /services/courses/src/dtos/create-course.dto.ts
-
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateCourseDto {
@@ -11,7 +9,6 @@ export class CreateCourseDto {
   @IsNotEmpty()
   descricao: string;
 
-  // Usar IsUUID é uma boa prática se o ID do professor for um UUID
   @IsUUID() 
   @IsNotEmpty()
   professorId: string;
