@@ -1,26 +1,22 @@
-version: '3.9'
-
-services:
-  gateway:
-    image: traefik:v2.9
+﻿services:
+  api_gateway:
+    image: nginx:alpine
     container_name: api_gateway
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
     ports:
       - "80:80"
-      - "8080:8080"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - courses
+      - enrollments
 
   db_courses:
     image: postgres:15
     container_name: db_courses
     environment:
-      POSTGRES_USER: ${POSTGRES_COURSES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_COURSES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB_COURSES}
+      POSTGRES_USER: user_courses
+      POSTGRES_PASSWORD: pass123
+      POSTGRES_DB: courses_db
     ports:
       - "5432:5432"
     volumes:
@@ -30,12 +26,32 @@ services:
     build: ./services/courses
     container_name: courses_service
     environment:
-      - DATABASE_URL=${DATABASE_COURSES_URL}
+      - DATABASE_URL=postgresql://user_courses:pass123@db_courses:5432/courses_db
+      - PORT=3001
     depends_on:
       - db_courses
-    labels:
-      - "traefik.http.routers.courses.rule=PathPrefix(`/courses`)"
-      - "traefik.http.services.courses.loadbalancer.server.port=3001"
+
+  db_enrollments:
+    image: postgres:15
+    container_name: db_enrollments
+    environment:
+      POSTGRES_USER: user_enrollments
+      POSTGRES_PASSWORD: pass123
+      POSTGRES_DB: enrollments_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_enrollments_data:/var/lib/postgresql/data
+
+  enrollments:
+    build: ./services/enrollments
+    container_name: enrollments_service
+    environment:
+      - DATABASE_URL=postgresql://user_enrollments:pass123@db_enrollments:5432/enrollments_db
+      - PORT=3002
+    depends_on:
+      - db_enrollments
 
 volumes:
   db_courses_data:
+  db_enrollments_data:
