@@ -1,54 +1,29 @@
 name: CI - Build & Test
+
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  courses-service:
-    name: Test Courses Service
+  tests:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./services/courses
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      - name: Install dependencies
-        run: npm install
+      - name: Build images
+        run: docker-compose -f docker-compose.yml build
 
-      - name: Build project
-        run: npm run build
+      - name: Run Courses Service tests
+        run: docker-compose run --rm courses npm run test
 
-      - name: Run tests
-        run: npm run test
-
-  enrollments-service:
-    name: Test Enrollments Service
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./services/enrollments
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Run tests
-        run: npm run test
+      - name: Run Enrollments Service tests
+        run: docker-compose run --rm enrollments npm run test
