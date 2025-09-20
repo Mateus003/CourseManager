@@ -27,3 +27,6 @@ jobs:
 
       - name: Run Enrollments Service tests
         run: docker compose run --rm enrollments npm run test
+        
+      - name: Run Users Service tests
+        run: docker compose run --rm users npm run test
