@@ -9,6 +9,7 @@
     depends_on:
       - courses
       - enrollments
+      - users
 
   db_courses:
     image: postgres:15
@@ -52,7 +53,28 @@
     depends_on:
       - db_enrollments
 
+  db_users:
+    image: postgres:15
+    container_name: db_users
+    environment:
+      POSTGRES_USER: user_users
+      POSTGRES_PASSWORD: pass123
+      POSTGRES_DB: users_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - db_users_data:/var/lib/postgresql/data
+
+  users:
+    build: ./services/users
+    container_name: users_service
+    environment:
+      - DATABASE_URL=postgresql://user_users:pass123@db_users:5432/users_db
+      - PORT=3003
+    depends_on:
+      - db_users
+
 volumes:
   db_courses_data:
   db_enrollments_data:
-  
+  db_users_data:
