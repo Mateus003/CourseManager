@@ -3,6 +3,10 @@ import { UsersService } from './user.service';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 
+jest.mock('bcrypt', () => ({
+  hash: jest.fn(),
+}));
+
 describe('UsersService', () => {
   let service: UsersService;
   let prisma: PrismaService;
@@ -35,10 +39,10 @@ describe('UsersService', () => {
   describe('create', () => {
     it('should create a user with hashed password', async () => {
       const userData = { name: 'João', email: 'joao@email.com', password: '123456', role: 'STUDENT' as 'STUDENT' | 'TEACHER' };
-      const hashedPassword = await bcrypt.hash(userData.password, 10);
+      const hashedPassword = 'hashed_password';
       const userMock = { id: '1', ...userData, password: hashedPassword, createdAt: new Date() };
 
-      jest.spyOn(bcrypt, 'hash').mockResolvedValue(hashedPassword);
+      (bcrypt.hash as jest.Mock).mockResolvedValue(hashedPassword);
       jest.spyOn(prisma.user, 'create').mockResolvedValue(userMock);
 
       const result = await service.create(userData);
@@ -72,5 +76,6 @@ describe('UsersService', () => {
       expect(result).toEqual(userMock);
       expect(prisma.user.findUnique).toHaveBeenCalledWith({ where: { id: '1' } });
     });
-    });
+
+  });
 });
