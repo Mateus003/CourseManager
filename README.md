@@ -15,7 +15,6 @@ Sistema de gerenciamento de cursos desenvolvido com arquitetura de microsserviç
 - [Desenvolvimento](#desenvolvimento)
 - [CI (Integração Contínua)](#ci-integração-contínua)
 - [Exemplos de Uso](#exemplos-de-uso)
-- [Contribuição](#contribuição)
 
 ## 🎯 Visão Geral
 
