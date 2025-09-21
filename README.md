@@ -297,6 +297,7 @@ O projeto utiliza Integração Contínua (CI) para automatizar o processo de des
 
 ## 📝 Exemplos de Uso
 
+### Criar um usuário
 ```json
 {
   "name": "João Silva",
