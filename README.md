@@ -38,17 +38,17 @@ O projeto adota uma arquitetura baseada em microsserviços, organizada da seguin
 - **Users Service**  
   - Porta interna: 3003*
   - Responsável por gerenciar informações de usuários.  
-  - Conecta-se ao banco de dados Users DB na porta 5434.  
+  - Conecta-se ao banco de dados Users DB na porta 5432 (interna do container). 
 
 - **Courses Service**  
   - Porta interna: 3001  
   - Responsável pelo gerenciamento de cursos.  
-  - Conecta-se ao banco de dados Courses DB na porta 5432.  
+  - Conecta-se ao banco de dados Courses DB na porta 5432 (interna do container).
 
 - **Enrollments Service**  
   - Porta interna: 3002
   - Responsável pelo gerenciamento das matrículas.  
-  - Conecta-se ao banco de dados Enrollments DB na porta 5433.  
+  - Conecta-se ao banco de dados Courses DB na porta 5432 (interna do container).  
 
 Cada microsserviço possui seu próprio banco de dados, garantindo independência e isolamento de dados.  
 
