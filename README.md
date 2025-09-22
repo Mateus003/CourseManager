@@ -6,6 +6,7 @@ Sistema de gerenciamento de cursos desenvolvido com arquitetura de microsserviç
 
 - [Visão Geral](#visão-geral)
 - [Arquitetura](#arquitetura)
+- [Diagrama da Arquitetura](#-diagrama-da-arquitetura)
 - [Tecnologias](#tecnologias)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Pré-requisitos](#pré-requisitos)
@@ -15,6 +16,7 @@ Sistema de gerenciamento de cursos desenvolvido com arquitetura de microsserviç
 - [Desenvolvimento](#desenvolvimento)
 - [CI (Integração Contínua)](#ci-integração-contínua)
 - [Exemplos de Uso](#exemplos-de-uso)
+- [Contribuição](#contribuição)
 
 ## 🎯 Visão Geral
 
@@ -51,6 +53,11 @@ O projeto adota uma arquitetura baseada em microsserviços, organizada da seguin
 
 Cada microsserviço possui seu próprio banco de dados, garantindo independência e isolamento de dados.  
 
+### 📊 Diagrama da Arquitetura  
+
+![Arquitetura do sistema](./docs/arquitetura.png)
+
+> **Legenda:** Cada bloco (`courses`, `users`, `enrollments`) no diagrama representa um *service* dentro da arquitetura.
 
 ## 🛠️ Tecnologias
 
@@ -296,7 +303,6 @@ O projeto utiliza Integração Contínua (CI) para automatizar o processo de des
 
 ## 📝 Exemplos de Uso
 
-### Criar um usuário
 ```json
 {
   "name": "João Silva",
