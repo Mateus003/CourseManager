@@ -6,7 +6,6 @@ Sistema de gerenciamento de cursos desenvolvido com arquitetura de microsserviç
 
 - [Visão Geral](#visão-geral)
 - [Arquitetura](#arquitetura)
-- [Diagrama da Arquitetura](#-diagrama-da-arquitetura)
 - [Tecnologias](#tecnologias)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Pré-requisitos](#pré-requisitos)
