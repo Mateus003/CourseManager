@@ -55,7 +55,7 @@ Cada microsserviço possui seu próprio banco de dados, garantindo independênci
 
 ### 📊 Diagrama da Arquitetura  
 
-![Arquitetura do sistema](./docs/arquitetura.png)
+![Arquitetura do sistema](./docs/Arquitetura.png)
 
 > **Legenda:** Cada bloco (`courses`, `users`, `enrollments`) no diagrama representa um *service* dentro da arquitetura.
 
